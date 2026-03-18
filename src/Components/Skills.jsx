@@ -4,57 +4,140 @@ import { motion } from 'framer-motion';
 const Skills = () => {
   const skillCategories = [
     {
-      title: "Frontend Development",
-      skills: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
-      color: "from-blue-500 to-cyan-400"
+      title: "Frontend",
+      emoji: "🎨",
+      skills: [
+        { name: "React", level: 92 },
+        { name: "Next.js", level: 85 },
+        { name: "Tailwind CSS", level: 95 },
+        { name: "Framer Motion", level: 80 },
+        { name: "TypeScript", level: 78 },
+      ],
+      gradient: "from-blue-500 to-cyan-400",
+      bg: "from-blue-50 to-cyan-50 dark:from-blue-900/10 dark:to-cyan-900/10",
+      border: "border-blue-100 dark:border-blue-500/15",
+      badgeColor: "bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300",
+      barColor: "from-blue-500 to-cyan-400",
     },
     {
-      title: "Backend Development",
-      skills: ["Node.js", "Express.js", "Firebase", "Socket.io"],
-      color: "from-green-500 to-emerald-400"
+      title: "Backend",
+      emoji: "⚙️",
+      skills: [
+        { name: "Node.js", level: 88 },
+        { name: "Express.js", level: 85 },
+        { name: "Firebase", level: 78 },
+        { name: "Socket.io", level: 72 },
+        { name: "REST APIs", level: 90 },
+      ],
+      gradient: "from-emerald-500 to-green-400",
+      bg: "from-emerald-50 to-green-50 dark:from-emerald-900/10 dark:to-green-900/10",
+      border: "border-emerald-100 dark:border-emerald-500/15",
+      badgeColor: "bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+      barColor: "from-emerald-500 to-green-400",
     },
     {
       title: "Database & Tools",
-      skills: ["MongoDB", "PostgreSQL", "Prisma", "Git & GitHub"],
-      color: "from-purple-500 to-violet-400"
-    }
+      emoji: "🛠️",
+      skills: [
+        { name: "MongoDB", level: 85 },
+        { name: "PostgreSQL", level: 75 },
+        { name: "Prisma", level: 72 },
+        { name: "Git & GitHub", level: 92 },
+        { name: "Docker", level: 60 },
+      ],
+      gradient: "from-violet-500 to-purple-400",
+      bg: "from-violet-50 to-purple-50 dark:from-violet-900/10 dark:to-purple-900/10",
+      border: "border-violet-100 dark:border-violet-500/15",
+      badgeColor: "bg-violet-100 dark:bg-violet-500/10 text-violet-700 dark:text-violet-300",
+      barColor: "from-violet-500 to-purple-400",
+    },
   ];
 
   return (
-    <section id="skills" className="py-24 transition-colors duration-500">
+    <section
+      id="skills"
+      className="py-24 lg:py-36
+                 bg-gradient-to-b from-white via-slate-50/50 to-white
+                 dark:bg-gradient-to-b dark:from-[#080810] dark:via-[#0b0b15] dark:to-[#080810]"
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+
+        {/* Section Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Technical <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Expertise</span>
+          <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-3">
+            What I work with
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tight">
+            Technical{' '}
+            <span className="bg-gradient-to-r from-violet-600 to-pink-600 dark:from-violet-400 dark:to-pink-400 bg-clip-text text-transparent">
+              Skills
+            </span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            I specialize in building full-stack applications with modern technologies that focus on performance and user experience.
+          <div className="mt-5 h-1 w-16 bg-gradient-to-r from-violet-500 to-pink-500 mx-auto rounded-full" />
+          <p className="mt-5 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-base">
+            I specialize in building full-stack applications with modern technologies focused on performance and great UX.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skillCategories.map((cat, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={cat.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="p-8 rounded-[2.5rem] bg-white dark:bg-[#111114] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-2xl transition-all duration-500 group"
+              transition={{ delay: index * 0.12, duration: 0.7 }}
+              whileHover={{ y: -6, transition: { duration: 0.3 } }}
+              className={`relative p-7 rounded-[2rem]
+                         bg-gradient-to-br ${cat.bg}
+                         border ${cat.border}
+                         shadow-sm hover:shadow-xl hover:shadow-violet-500/10
+                         transition-all duration-500 group overflow-hidden`}
             >
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cat.color} mb-6 shadow-lg transform group-hover:rotate-12 transition-transform`} />
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{cat.title}</h3>
-              <div className="flex flex-wrap gap-3">
-                {cat.skills.map(s => (
-                  <span key={s} className="px-4 py-2 bg-gray-100 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 rounded-xl text-xs font-bold uppercase tracking-wider border border-transparent hover:border-blue-500/30 transition-colors">
-                    {s}
-                  </span>
+              {/* Top glow */}
+              <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${cat.gradient} opacity-50`} />
+
+              {/* Header */}
+              <div className="flex items-center justify-between mb-7">
+                <div>
+                  <p className="text-3xl mb-1">{cat.emoji}</p>
+                  <h3 className="text-xl font-black text-gray-900 dark:text-white">{cat.title}</h3>
+                </div>
+                <span className={`px-3 py-1.5 text-xs font-bold rounded-xl ${cat.badgeColor}`}>
+                  {cat.skills.length} skills
+                </span>
+              </div>
+
+              {/* Skill Bars */}
+              <div className="space-y-4">
+                {cat.skills.map((skill, i) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + i * 0.07 }}
+                  >
+                    <div className="flex justify-between items-center mb-1.5">
+                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{skill.name}</span>
+                      <span className="text-xs font-bold text-gray-400 dark:text-gray-500">{skill.level}%</span>
+                    </div>
+                    <div className="h-1.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: index * 0.1 + i * 0.08, ease: 'easeOut' }}
+                        className={`h-full bg-gradient-to-r ${cat.barColor} rounded-full`}
+                      />
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -65,10 +148,7 @@ const Skills = () => {
   );
 };
 
-// এই লাইনটি খুবই গুরুত্বপূর্ণ
 export default Skills;
-
-
 
 
 
