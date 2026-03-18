@@ -5,29 +5,27 @@ html, body {
   overflow-x: hidden;
 }
 
-.typewriter {
-    overflow:hidden;
-    border-right: 0.15em solid #885CF6;
-    white-space: nowrap;
-    animation: typing 3s steps(20,end) forwards,blink-caret 0.75s step-end 4;
+/* ===================== */
+/* Typewriter Styles     */
+/* ===================== */
+.type-gradient {
+  background: linear-gradient(to right, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes typing {
-    from { width: 0;}
-    to {width: 15ch;}
+/* Light mode typewriter gradient */
+html:not(.dark) .type-gradient {
+  background: linear-gradient(to right, #7c3aed, #db2777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-@keyframes blink-caret {
-    from,to {border-color: transparent ;}
-    50% { border-color: #885CF6 ;}
-}
-
-
 
 .custom-cursor {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400;
+  color: #8b5cf6;
   font-weight: 900;
-  font-size: 1.1em;
-  text-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
   animation: blink 1s infinite;
 }
 
@@ -36,12 +34,57 @@ html, body {
   50% { opacity: 0; }
 }
 
-.type-gradient {
-  background: linear-gradient(to right, #c084fc, #f472b6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* ===================== */
+/* Slow spin animation   */
+/* ===================== */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
-.custom-cursor {
-  color: #f472b6;
-  font-weight: bold;
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* ===================== */
+/* Scrollbar             */
+/* ===================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b5cf6;
+  border-radius: 99px;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+}
+
+/* ===================== */
+/* Selection             */
+/* ===================== */
+::selection {
+  background: rgba(139, 92, 246, 0.25);
+  color: inherit;
+}
+
+/* ===================== */
+/* Smooth scroll         */
+/* ===================== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===================== */
+/* Focus ring override   */
+/* ===================== */
+*:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
 }
