@@ -1,14 +1,52 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, CheckCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setStatus('loading');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '923ce129-8cd3-458a-a554-bd6305150500', // 👈 এখানে তোমার key বসাবে
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'New message from Portfolio',
+          message: formData.message,
+          from_name: 'Portfolio Contact Form',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 4000);
+      }
+    } catch (err) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
 
   const contactInfo = [
@@ -22,6 +60,16 @@ const Contact = () => {
     { icon: Linkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
   ];
+
+  const inputClass = `w-full px-5 py-3.5 rounded-xl
+    bg-gray-50 dark:bg-white/[0.04]
+    border border-gray-200 dark:border-white/[0.08]
+    text-gray-900 dark:text-white
+    placeholder-gray-400 dark:placeholder-gray-600
+    focus:outline-none focus:border-violet-400 dark:focus:border-violet-500
+    focus:ring-2 focus:ring-violet-500/15
+    transition-all duration-200 text-sm
+    disabled:opacity-50 disabled:cursor-not-allowed`;
 
   return (
     <section
@@ -69,109 +117,148 @@ const Contact = () => {
                             bg-white dark:bg-[#0f0f1a]
                             border border-gray-100 dark:border-white/[0.06]
                             shadow-sm">
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center py-16 text-center gap-4"
-                >
-                  <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-500/10 flex items-center justify-center">
-                    <CheckCircle className="text-green-600 dark:text-green-400" size={32} />
-                  </div>
-                  <h3 className="text-2xl font-black text-gray-900 dark:text-white">Message Sent!</h3>
-                  <p className="text-gray-500 dark:text-gray-400">Thanks for reaching out. I'll get back to you soon.</p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {/* Name */}
+
+              <AnimatePresence mode="wait">
+                {status === 'success' ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="flex flex-col items-center justify-center py-16 text-center gap-4"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', delay: 0.1 }}
+                      className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-500/10 flex items-center justify-center"
+                    >
+                      <CheckCircle className="text-green-600 dark:text-green-400" size={36} />
+                    </motion.div>
+                    <h3 className="text-2xl font-black text-gray-900 dark:text-white">Message Sent! 🎉</h3>
+                    <p className="text-gray-500 dark:text-gray-400 max-w-xs">
+                      Thanks for reaching out! I'll get back to you within 24 hours.
+                    </p>
+                  </motion.div>
+
+                ) : (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleSubmit}
+                    className="space-y-5"
+                  >
+                    {/* Error Banner */}
+                    <AnimatePresence>
+                      {status === 'error' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="flex items-center gap-3 p-4 rounded-xl
+                                     bg-red-50 dark:bg-red-500/10
+                                     border border-red-200 dark:border-red-500/20
+                                     text-red-600 dark:text-red-400 text-sm font-medium"
+                        >
+                          <AlertCircle size={18} />
+                          Something went wrong. Please try again!
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div className="space-y-2">
+                        <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                          Your Name <span className="text-violet-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          disabled={status === 'loading'}
+                          placeholder="Salim Islam"
+                          className={inputClass}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                          Email Address <span className="text-violet-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          disabled={status === 'loading'}
+                          placeholder="hello@example.com"
+                          className={inputClass}
+                        />
+                      </div>
+                    </div>
+
                     <div className="space-y-2">
-                      <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">Your Name</label>
+                      <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">Subject</label>
                       <input
                         type="text"
-                        required
-                        placeholder="Salim Islam"
-                        className="w-full px-5 py-3.5 rounded-xl
-                                   bg-gray-50 dark:bg-white/[0.04]
-                                   border border-gray-200 dark:border-white/[0.08]
-                                   text-gray-900 dark:text-white
-                                   placeholder-gray-400 dark:placeholder-gray-600
-                                   focus:outline-none focus:border-violet-400 dark:focus:border-violet-500
-                                   focus:ring-2 focus:ring-violet-500/15
-                                   transition-all duration-200 text-sm"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        disabled={status === 'loading'}
+                        placeholder="Project inquiry, collaboration..."
+                        className={inputClass}
                       />
                     </div>
-                    {/* Email */}
+
                     <div className="space-y-2">
-                      <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">Email Address</label>
-                      <input
-                        type="email"
+                      <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                        Your Message <span className="text-violet-500">*</span>
+                      </label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows={5}
                         required
-                        placeholder="hello@salim.dev"
-                        className="w-full px-5 py-3.5 rounded-xl
-                                   bg-gray-50 dark:bg-white/[0.04]
-                                   border border-gray-200 dark:border-white/[0.08]
-                                   text-gray-900 dark:text-white
-                                   placeholder-gray-400 dark:placeholder-gray-600
-                                   focus:outline-none focus:border-violet-400 dark:focus:border-violet-500
-                                   focus:ring-2 focus:ring-violet-500/15
-                                   transition-all duration-200 text-sm"
+                        disabled={status === 'loading'}
+                        placeholder="Tell me about your project or just say hi..."
+                        className={`${inputClass} resize-none`}
                       />
                     </div>
-                  </div>
 
-                  {/* Subject */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">Subject</label>
-                    <input
-                      type="text"
-                      placeholder="Project inquiry..."
-                      className="w-full px-5 py-3.5 rounded-xl
-                                 bg-gray-50 dark:bg-white/[0.04]
-                                 border border-gray-200 dark:border-white/[0.08]
-                                 text-gray-900 dark:text-white
-                                 placeholder-gray-400 dark:placeholder-gray-600
-                                 focus:outline-none focus:border-violet-400 dark:focus:border-violet-500
-                                 focus:ring-2 focus:ring-violet-500/15
-                                 transition-all duration-200 text-sm"
-                    />
-                  </div>
-
-                  {/* Message */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-gray-600 dark:text-gray-400">Your Message</label>
-                    <textarea
-                      rows={5}
-                      required
-                      placeholder="Tell me about your project or just say hi..."
-                      className="w-full px-5 py-3.5 rounded-xl resize-none
-                                 bg-gray-50 dark:bg-white/[0.04]
-                                 border border-gray-200 dark:border-white/[0.08]
-                                 text-gray-900 dark:text-white
-                                 placeholder-gray-400 dark:placeholder-gray-600
-                                 focus:outline-none focus:border-violet-400 dark:focus:border-violet-500
-                                 focus:ring-2 focus:ring-violet-500/15
-                                 transition-all duration-200 text-sm"
-                    />
-                  </div>
-
-                  {/* Submit */}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.97 }}
-                    type="submit"
-                    className="w-full py-4 bg-gradient-to-r from-violet-600 to-pink-600
-                               dark:from-violet-500 dark:to-pink-500
-                               text-white font-bold rounded-xl
-                               shadow-lg shadow-violet-500/25 hover:shadow-xl hover:shadow-violet-500/35
-                               flex items-center justify-center gap-3
-                               transition-all duration-300"
-                  >
-                    <Send size={18} />
-                    Send Message
-                  </motion.button>
-                </form>
-              )}
+                    <motion.button
+                      whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
+                      whileTap={{ scale: status === 'loading' ? 1 : 0.97 }}
+                      type="submit"
+                      disabled={status === 'loading'}
+                      className="w-full py-4 bg-gradient-to-r from-violet-600 to-pink-600
+                                 dark:from-violet-500 dark:to-pink-500
+                                 text-white font-bold rounded-xl
+                                 shadow-lg shadow-violet-500/25
+                                 hover:shadow-xl hover:shadow-violet-500/35
+                                 flex items-center justify-center gap-3
+                                 transition-all duration-300
+                                 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {status === 'loading' ? (
+                        <>
+                          <Loader2 size={18} className="animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send size={18} />
+                          Send Message
+                        </>
+                      )}
+                    </motion.button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 
@@ -181,75 +268,69 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2 space-y-5"
           >
-            {/* Contact Info Cards */}
-            <div className="space-y-4">
-              {contactInfo.map((info, i) => (
-                <motion.div
-                  key={info.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                  className="flex items-center gap-4 p-5 rounded-2xl
-                             bg-white dark:bg-[#0f0f1a]
-                             border border-gray-100 dark:border-white/[0.06]
-                             hover:border-violet-200 dark:hover:border-violet-500/25
-                             shadow-sm hover:shadow-md
-                             transition-all duration-300 group"
-                >
-                  <div className="w-12 h-12 rounded-xl
-                                  bg-violet-100 dark:bg-violet-500/10
-                                  flex items-center justify-center flex-shrink-0
-                                  group-hover:bg-violet-200 dark:group-hover:bg-violet-500/20
-                                  transition-colors duration-300">
-                    <info.icon size={20} className="text-violet-600 dark:text-violet-400" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">{info.label}</p>
-                    {info.href ? (
-                      <a href={info.href} className="text-sm font-semibold text-gray-800 dark:text-gray-200 hover:text-violet-600 dark:hover:text-violet-400 transition-colors mt-0.5 block">
-                        {info.value}
-                      </a>
-                    ) : (
-                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mt-0.5">{info.value}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {contactInfo.map((info, i) => (
+              <motion.div
+                key={info.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.08 }}
+                className="flex items-center gap-4 p-5 rounded-2xl
+                           bg-white dark:bg-[#0f0f1a]
+                           border border-gray-100 dark:border-white/[0.06]
+                           hover:border-violet-200 dark:hover:border-violet-500/25
+                           shadow-sm hover:shadow-md
+                           transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-xl
+                                bg-violet-100 dark:bg-violet-500/10
+                                flex items-center justify-center flex-shrink-0
+                                group-hover:bg-violet-200 dark:group-hover:bg-violet-500/20
+                                transition-colors duration-300">
+                  <info.icon size={20} className="text-violet-600 dark:text-violet-400" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                    {info.label}
+                  </p>
+                  {info.href ? (
+                    <a href={info.href}
+                       className="text-sm font-semibold text-gray-800 dark:text-gray-200
+                                  hover:text-violet-600 dark:hover:text-violet-400
+                                  transition-colors mt-0.5 block">
+                      {info.value}
+                    </a>
+                  ) : (
+                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mt-0.5">{info.value}</p>
+                  )}
+                </div>
+              </motion.div>
+            ))}
 
-            {/* Social Links */}
             <div className="p-6 rounded-2xl
                             bg-white dark:bg-[#0f0f1a]
-                            border border-gray-100 dark:border-white/[0.06]
-                            shadow-sm">
+                            border border-gray-100 dark:border-white/[0.06] shadow-sm">
               <h4 className="text-base font-black text-gray-900 dark:text-white mb-4">Find me on</h4>
               <div className="flex gap-3">
                 {socials.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={social.label}
-                    className="flex-1 flex items-center justify-center py-3 rounded-xl
-                               bg-gray-100 dark:bg-white/[0.05]
-                               text-gray-600 dark:text-gray-400
-                               border border-gray-200 dark:border-white/[0.07]
-                               hover:bg-violet-50 dark:hover:bg-violet-500/10
-                               hover:text-violet-600 dark:hover:text-violet-400
-                               hover:border-violet-200 dark:hover:border-violet-500/30
-                               transition-all duration-200"
-                  >
+                  <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer"
+                     title={social.label}
+                     className="flex-1 flex items-center justify-center py-3 rounded-xl
+                                bg-gray-100 dark:bg-white/[0.05]
+                                text-gray-600 dark:text-gray-400
+                                border border-gray-200 dark:border-white/[0.07]
+                                hover:bg-violet-50 dark:hover:bg-violet-500/10
+                                hover:text-violet-600 dark:hover:text-violet-400
+                                hover:border-violet-200 dark:hover:border-violet-500/30
+                                transition-all duration-200">
                     <social.icon size={20} />
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Availability note */}
             <div className="p-5 rounded-2xl
                             bg-gradient-to-br from-violet-50 to-pink-50
                             dark:from-violet-900/15 dark:to-pink-900/10
@@ -259,7 +340,7 @@ const Contact = () => {
                 <p className="text-sm font-bold text-gray-800 dark:text-white">Currently Available</p>
               </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                I'm open to freelance projects and full-time opportunities. Let's build something great together!
+                I'm open to freelance projects and full-time opportunities. Usually reply within 24 hours!
               </p>
             </div>
           </motion.div>
