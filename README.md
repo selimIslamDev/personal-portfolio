@@ -46,7 +46,7 @@ A modern, fully responsive personal portfolio website built with **React**, **Ta
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/personal-portfolio.git
+git clone https://github.com/salim-khan-3/personal-portfolio
 
 # Navigate to project directory
 cd personal-portfolio
