@@ -51,13 +51,13 @@ const Contact = () => {
 
   const contactInfo = [
     { icon: MapPin, label: 'Location', value: 'Rangpur, Bangladesh' },
-    { icon: Mail, label: 'Email', value: 'hello@salim.dev', href: 'mailto:hello@salim.dev' },
-    { icon: Phone, label: 'Phone', value: '+880 17xx-xxxxxx', href: 'tel:+880' },
+    { icon: Mail, label: 'Email', value: 'salimislam0036@gmail.com', href: 'salimislam0036@gmail.com' },
+    { icon: Phone, label: 'Phone', value: '+880 1581033650', href: '+880 1581033650' },
   ];
 
   const socials = [
-    { icon: Github, href: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+    { icon: Github, href: 'https://github.com/salim-khan-3', label: 'GitHub' },
+    { icon: Linkedin, href: 'www.linkedin.com/in/mdsalimislamdev', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
   ];
 
