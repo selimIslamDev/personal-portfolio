@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import img1 from "../assets/Screenshot_15.png"
+import img2 from "../assets/img2.png"
 
 const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -33,6 +34,32 @@ const Projects = () => {
       accent: "from-violet-500 to-purple-600",
       tag: "Fullstack",
     },
+    {
+  title: "ClubSphere – Membership & Event Management",
+  description:
+    "A full-stack MERN web application for discovering, joining, and managing local clubs. Features role-based dashboards for Admin, Club Manager, and Member, with Stripe payment integration for paid memberships and events.",
+  tech: [
+    "React 18",
+    "Tailwind CSS",
+    "Axios",
+    "Framer Motion",
+    "React Router DOM v6",
+    "React Hook Form",
+    "TanStack Query",
+    "React Hot Toast",
+    "SweetAlert2",
+    "Lucide React",
+    "Recharts",
+    "Stripe",
+    "Firebase",
+    "Vite",
+  ],
+  liveLink: "https://clubsphere-fullstack-project.netlify.app/",
+  githubLink: "https://github.com/salim-khan-3/clubsphere-react-project-client",
+  image: img2,
+  accent: "from-purple-500 to-gold-500",
+  tag: "Fullstack",
+},
   ];
 
   return (
