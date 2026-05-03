@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import img1 from "../assets/Screenshot_15.png"
 import img2 from "../assets/img2.png"
+import img3 from "../assets/img3.png"
 
 const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -58,6 +59,26 @@ const Projects = () => {
   githubLink: "https://github.com/salim-khan-3/clubsphere-react-project-client",
   image: img2,
   accent: "from-purple-500 to-gold-500",
+  tag: "Fullstack",
+},
+{
+  title: "EduTrack - Learning Management System",
+  description:
+    "A full-stack Learning Management System built with Next.js 14, featuring role-based authentication for instructors and students, assignment management, AI-powered feedback generation, real-time submission tracking, and an analytics dashboard with visual charts.",
+  tech: [
+    "Next.js 14",
+    "TypeScript",
+    "MongoDB Atlas",
+    "NextAuth.js",
+    "Tailwind CSS",
+    "Recharts",
+    "Gemini AI",
+    "Vercel",
+  ],
+  liveLink: "https://learning-management-system-58tk.vercel.app",
+  githubLink: "https://github.com/selimIslamDev/learning-management-system",
+  image: img3,
+  accent: "from-blue-500 to-purple-600",
   tag: "Fullstack",
 },
   ];
