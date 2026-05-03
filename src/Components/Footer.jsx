@@ -15,10 +15,9 @@ const Footer = () => {
   ];
 
   const socials = [
-    { icon: Github, href: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:hello@salim.dev', label: 'Email' },
+    { icon: Github, href: 'https://github.com/selimIslamDev', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/mdsalimislamdev', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:salimislam0036@gmail.com', label: 'Email' },
   ];
 
   return (

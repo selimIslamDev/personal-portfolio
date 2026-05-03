@@ -56,15 +56,14 @@ const Contact = () => {
   ];
 
   const socials = [
-    { icon: Github, href: 'https://github.com/salim-khan-3', label: 'GitHub' },
+    { icon: Github, href: 'https://github.com/selimIslamDev', label: 'GitHub' },
     { icon: Linkedin, href: 'www.linkedin.com/in/mdsalimislamdev', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
   ];
 
   const inputClass = `w-full px-5 py-3.5 rounded-xl
     bg-gray-50 dark:bg-white/[0.04]
     border border-gray-200 dark:border-white/[0.08]
-    text-gray-900 dark:text-white
+    text-gray-900 dark:text-white 
     placeholder-gray-400 dark:placeholder-gray-600
     focus:outline-none focus:border-violet-400 dark:focus:border-violet-500
     focus:ring-2 focus:ring-violet-500/15
