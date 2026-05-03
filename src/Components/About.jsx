@@ -5,10 +5,10 @@ import { MapPin, Briefcase, Mail, Clock } from 'lucide-react';
 
 const About = () => {
   const facts = [
-    { icon: MapPin, label: 'Location', value: 'Rangpur, Bangladesh' },
-    { icon: Briefcase, label: 'Experience', value: '3+ Years' },
+    { icon: MapPin, label: 'Location', value: 'Thakurgaon, Bangladesh' },
+   
     { icon: Clock, label: 'Availability', value: 'Open for Freelance' },
-    { icon: Mail, label: 'Email', value: 'salim@example.com' },
+    { icon: Mail, label: 'Email', value: 'salimislam0036@gmail.com' },
   ];
 
   return (
@@ -71,7 +71,7 @@ const About = () => {
               </div>
 
               {/* Floating experience badge */}
-              <motion.div
+              {/* <motion.div
                 animate={{ y: [0, -7, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute -bottom-6 -right-6
@@ -82,7 +82,7 @@ const About = () => {
               >
                 <p className="text-3xl font-black text-gray-900 dark:text-white">3+</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Years of<br />Experience</p>
-              </motion.div>
+              </motion.div> */}
 
               <motion.div
                 animate={{ y: [0, 7, 0] }}
@@ -93,7 +93,7 @@ const About = () => {
                            rounded-2xl px-5 py-4
                            shadow-xl shadow-black/10 dark:shadow-black/40"
               >
-                <p className="text-3xl font-black text-gray-900 dark:text-white">20+</p>
+                <p className="text-3xl font-black text-gray-900 dark:text-white">5+</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Projects<br />Completed</p>
               </motion.div>
             </div>

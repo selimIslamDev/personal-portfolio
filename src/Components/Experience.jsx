@@ -79,7 +79,7 @@ const Experience = () => {
 
   return (
     <section
-      id="journey"
+      id="experience"
       className="py-24 lg:py-36
                  bg-gradient-to-b from-white via-slate-50/50 to-white
                  dark:bg-gradient-to-b dark:from-[#080810] dark:via-[#0b0b15] dark:to-[#080810]"
@@ -92,7 +92,7 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          className="text-center mb-20" 
         >
           <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-3">
             From zero to full-stack
@@ -100,7 +100,7 @@ const Experience = () => {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tight">
             My{' '}
             <span className="bg-gradient-to-r from-violet-600 to-pink-600 dark:from-violet-400 dark:to-pink-400 bg-clip-text text-transparent">
-              Journey
+              Experience
             </span>
           </h2>
           <div className="mt-5 h-1 w-16 bg-gradient-to-r from-violet-500 to-pink-500 mx-auto rounded-full" />

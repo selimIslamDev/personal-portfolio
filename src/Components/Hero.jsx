@@ -148,9 +148,9 @@ const Hero = () => {
             className="flex gap-8 pt-4"
           >
             {[
-              { value: '3+', label: 'Years Exp.' },
-              { value: '20+', label: 'Projects' },
-              { value: '15+', label: 'Happy Clients' },
+              // { value: '3+', label: 'Years Exp.' },
+              { value: '5+', label: 'Projects' },
+    
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</p>
