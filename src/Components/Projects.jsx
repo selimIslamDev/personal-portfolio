@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import img1 from "../assets/Screenshot_15.png"
+import kitabghorImg from "../assets/image.png"
 import img2 from "../assets/img2.png"
 import img3 from "../assets/img3.png"
 
@@ -33,6 +34,30 @@ const Projects = () => {
       githubLink: "https://github.com/salim-khan-3/fullstack-ecommerce-mern-client-side",
       image: img1,
       accent: "from-violet-500 to-purple-600",
+      tag: "Fullstack",
+    },
+    {
+      title: "KitabGhor – Academic Books & Gadgets E-Commerce",
+      description:
+        "A full-stack e-commerce platform for academic books and educational gadgets, built solo end-to-end for students from Class 8 through university level. Includes a customer storefront, admin dashboard, and complete order management with online payment integration.",
+      tech: [
+        "Next.js",
+        "TypeScript",
+        "Express",
+        "Prisma",
+        "PostgreSQL (Supabase)",
+        "Zustand",
+        "Tailwind CSS",
+        "Cloudinary",
+        "SSLCommerz",
+        "Resend",
+        "Vercel",
+        "Render",
+      ],
+      liveLink: "https://kitabghor-web.vercel.app",
+      githubLink: "https://github.com/selimIslamDev/kitabghor-web",
+      image: kitabghorImg,
+      accent: "from-amber-500 to-yellow-600",
       tag: "Fullstack",
     },
     {
