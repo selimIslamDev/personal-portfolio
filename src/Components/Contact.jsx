@@ -66,13 +66,13 @@ const Contact = () => {
       icon: Mail,
       label: "Email",
       value: "salimislam0036@gmail.com",
-      href: "salimislam0036@gmail.com",
+      href: "mailto:salimislam0036@gmail.com",
     },
     {
       icon: Phone,
       label: "Phone",
       value: "+880 1581033650",
-      href: "+880 1581033650",
+      href: "tel:+8801581033650",
     },
   ];
 
@@ -80,7 +80,7 @@ const Contact = () => {
     { icon: Github, href: "https://github.com/selimIslamDev", label: "GitHub" },
     {
       icon: Linkedin,
-      href: "www.linkedin.com/in/mdsalimislamdev",
+      href: "https://www.linkedin.com/in/mdsalimislamdev",
       label: "LinkedIn",
     },
   ];
