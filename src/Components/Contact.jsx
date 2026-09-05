@@ -103,7 +103,7 @@ const Contact = () => {
                  dark:bg-gradient-to-b dark:from-[#080810] dark:via-[#0d0d18] dark:to-[#080810]"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Title */}
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
